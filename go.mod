@@ -54,4 +54,6 @@ replace github.com/projectcalico/libcalico-go => ../libcalico-go
 
 replace github.com/dgrijalva/jwt-go => github.com/golang-jwt/jwt/v4 v4.4.2
 
+replace github.com/gogo/protobuf => github.com/gogo/protobuf v1.3.2
+
 replace github.com/projectcalico/felix => ../felix
