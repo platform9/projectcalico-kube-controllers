@@ -66,4 +66,6 @@ replace github.com/containernetworking/cni => github.com/containernetworking/cni
 
 replace golang.org/x/net => golang.org/x/net v0.7.0
 
+replace github.com/satori/go.uuid => github.com/google/uuid v1.3.0
+
 replace github.com/projectcalico/felix => ../felix
