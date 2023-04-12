@@ -12,7 +12,7 @@ require (
 	github.com/projectcalico/felix v0.0.0-20210820104741-c7a9fc04d520
 	github.com/projectcalico/libcalico-go v1.7.2-0.20211119233600-e3f7c620522a
 	github.com/prometheus/client_golang v1.11.1
-	github.com/satori/go.uuid v1.2.1-0.20181028125025-b2ce2384e17b
+	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.6.0
 	github.com/spf13/pflag v1.0.5
 	go.etcd.io/etcd v0.5.0-alpha.5.0.20201125193152-8a03d2e9614b
@@ -65,5 +65,7 @@ replace golang.org/x/text => golang.org/x/text v0.3.8
 replace github.com/containernetworking/cni => github.com/containernetworking/cni v0.8.1
 
 replace golang.org/x/net => golang.org/x/net v0.7.0
+
+replace github.com/satori/go.uuid => github.com/google/uuid v1.3.0
 
 replace github.com/projectcalico/felix => ../felix
