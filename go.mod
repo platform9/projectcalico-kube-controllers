@@ -50,7 +50,7 @@ replace (
 	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.18.12
 )
 
-//replace github.com/projectcalico/libcalico-go => ../libcalico-go
+replace github.com/projectcalico/libcalico-go => ../libcalico-go
 
 replace github.com/dgrijalva/jwt-go => github.com/golang-jwt/jwt/v4 v4.4.2
 
@@ -66,4 +66,4 @@ replace github.com/containernetworking/cni => github.com/containernetworking/cni
 
 replace golang.org/x/net => golang.org/x/net v0.7.0
 
-//replace github.com/projectcalico/felix => ../felix
+replace github.com/projectcalico/felix => ../felix
