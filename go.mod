@@ -1,6 +1,6 @@
 module github.com/projectcalico/kube-controllers
 
-go 1.14
+go 1.16
 
 require (
 	github.com/apparentlymart/go-cidr v1.0.1
@@ -10,22 +10,20 @@ require (
 	github.com/onsi/gomega v1.10.4
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/projectcalico/felix v0.0.0-20210820104741-c7a9fc04d520
-	github.com/projectcalico/libcalico-go v1.7.2-0.20210728180911-2a96f2c631ea
-	github.com/prometheus/client_golang v1.7.1
+	github.com/projectcalico/libcalico-go v1.7.2-0.20211119233600-e3f7c620522a
+	github.com/prometheus/client_golang v1.11.1
 	github.com/satori/go.uuid v1.2.0
-	github.com/sirupsen/logrus v1.4.2
+	github.com/sirupsen/logrus v1.6.0
 	github.com/spf13/pflag v1.0.5
 	go.etcd.io/etcd v0.5.0-alpha.5.0.20201125193152-8a03d2e9614b
-	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
-	golang.org/x/mod v0.3.0 // indirect
-	golang.org/x/tools v0.0.0-20200601175630-2caf76543d99 // indirect
-	honnef.co/go/tools v0.0.1-2020.1.4 // indirect
 	k8s.io/api v0.19.6
 	k8s.io/apimachinery v0.19.6
 	k8s.io/apiserver v0.18.12
 	k8s.io/client-go v0.19.6
 	k8s.io/klog v1.0.0
 )
+
+require honnef.co/go/tools v0.0.1-2020.1.4 // indirect
 
 replace (
 	github.com/sirupsen/logrus => github.com/projectcalico/logrus v1.0.4-calico
@@ -51,3 +49,21 @@ replace (
 	k8s.io/metrics => k8s.io/metrics v0.18.12
 	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.18.12
 )
+
+replace github.com/projectcalico/libcalico-go => ../libcalico-go
+
+replace github.com/dgrijalva/jwt-go => github.com/golang-jwt/jwt/v4 v4.4.2
+
+replace github.com/gogo/protobuf => github.com/gogo/protobuf v1.3.2
+
+replace github.com/prometheus/client_golang => github.com/prometheus/client_golang v1.11.1
+
+replace golang.org/x/crypto => golang.org/x/crypto v0.0.0-20220314234659-1baeb1ce4c0b
+
+replace golang.org/x/text => golang.org/x/text v0.3.8
+
+replace github.com/containernetworking/cni => github.com/containernetworking/cni v0.8.1
+
+replace golang.org/x/net => golang.org/x/net v0.7.0
+
+replace github.com/projectcalico/felix => ../felix

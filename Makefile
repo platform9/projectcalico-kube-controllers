@@ -1,5 +1,5 @@
 PACKAGE_NAME=github.com/projectcalico/kube-controllers
-GO_BUILD_VER=v0.49
+GO_BUILD_VER=v0.72.1
 
 SEMAPHORE_PROJECT_ID?=$(SEMAPHORE_KUBE_CONTROLLERS_PROJECT_ID)
 
@@ -79,12 +79,12 @@ sub-build-%:
 	$(MAKE) build ARCH=$*
 
 bin/kube-controllers-linux-$(ARCH): $(LOCAL_BUILD_DEP) $(SRC_FILES)
-	$(DOCKER_RUN) \
+	$(DOCKER_RUN) -v $(CURDIR)/../libcalico-go:/go/src/github.com/projectcalico/libcalico-go:rw -v $(CURDIR)/../felix:/go/src/github.com/projectcalico/felix:rw \
 	  -v $(CURDIR)/bin:/go/src/$(PACKAGE_NAME)/bin \
 	  $(CALICO_BUILD) go build -v -o bin/kube-controllers-$(BUILDOS)-$(ARCH) -ldflags "-X main.VERSION=$(GIT_VERSION)" ./cmd/kube-controllers/
 
 bin/check-status-linux-$(ARCH): $(LOCAL_BUILD_DEP) $(SRC_FILES)
-	$(DOCKER_RUN) \
+	$(DOCKER_RUN) -v $(CURDIR)/../libcalico-go:/go/src/github.com/projectcalico/libcalico-go:rw -v $(CURDIR)/../felix:/go/src/github.com/projectcalico/felix:rw \
 	  -v $(CURDIR)/bin:/go/src/$(PACKAGE_NAME)/bin \
 	  $(CALICO_BUILD) go build -v -o bin/check-status-$(BUILDOS)-$(ARCH) -ldflags "-X main.VERSION=$(GIT_VERSION)" ./cmd/check-status/
 
@@ -116,7 +116,7 @@ endif
 .PHONY: remote-deps
 remote-deps: mod-download
 	@mkdir -p tests/crds/
-	$(DOCKER_RUN) $(CALICO_BUILD) sh -c ' \
+	$(DOCKER_RUN) -v $(CURDIR)/../libcalico-go:/go/src/github.com/projectcalico/libcalico-go:rw -v $(CURDIR)/../felix:/go/src/github.com/projectcalico/felix:rw $(CALICO_BUILD) sh -c ' \
 		cp `go list -m -f "{{.Dir}}" github.com/projectcalico/libcalico-go`/config/crd/* tests/crds/; \
 		chmod +w tests/crds/*'
 
@@ -214,7 +214,7 @@ check-copyright:
 ###############################################################################
 ## Run the unit tests in a container.
 ut: $(LOCAL_BUILD_DEP)
-	$(DOCKER_RUN) --privileged $(CALICO_BUILD) sh -c 'WHAT=$(WHAT) SKIP=$(SKIP) GINKGO_ARGS=$(GINKGO_ARGS) ./run-uts'
+	$(DOCKER_RUN) -v $(CURDIR)/../libcalico-go:/go/src/github.com/projectcalico/libcalico-go:rw -v $(CURDIR)/../felix:/go/src/github.com/projectcalico/felix:rw --privileged $(CALICO_BUILD) sh -c 'WHAT=$(WHAT) SKIP=$(SKIP) GINKGO_ARGS=$(GINKGO_ARGS) ./run-uts'
 
 .PHONY: fv
 ## Build and run the FV tests.
@@ -232,7 +232,7 @@ fv: remote-deps tests/fv/fv.test image
 tests/fv/fv.test: $(LOCAL_BUILD_DEP) $(shell find ./tests -type f -name '*.go' -print)
 	# We pre-build the test binary so that we can run it outside a container and allow it
 	# to interact with docker.
-	$(DOCKER_RUN) $(CALICO_BUILD) go test ./tests/fv -c --tags fvtests -o tests/fv/fv.test
+	$(DOCKER_RUN) -v $(CURDIR)/../libcalico-go:/go/src/github.com/projectcalico/libcalico-go:rw -v $(CURDIR)/../felix:/go/src/github.com/projectcalico/felix:rw $(CALICO_BUILD) go test ./tests/fv -c --tags fvtests -o tests/fv/fv.test
 
 ###############################################################################
 # CI
